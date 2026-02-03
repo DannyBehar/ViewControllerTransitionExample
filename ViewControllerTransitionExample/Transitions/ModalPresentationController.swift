@@ -1,6 +1,12 @@
 import UIKit
 import Cartography
 
+enum ModalPresentationAlignment {
+    case top
+    case center
+    case bottom
+}
+
 class ModalPresentationController: UIPresentationController {
 
     lazy var fadeView: UIView = .make(backgroundColor: UIColor.black.withAlphaComponent(0.3), alpha: 0.0)
@@ -45,6 +51,7 @@ class ModalPresentationController: UIPresentationController {
 
         let inset: CGFloat = 16
         let safeAreaFrame = containerView.bounds.inset(by: containerView.safeAreaInsets)
+        let verticalPadding: CGFloat = 8.0
 
         let targetWidth = safeAreaFrame.width - 2 * inset
         let fittingSize = CGSize(
@@ -60,9 +67,18 @@ class ModalPresentationController: UIPresentationController {
 
         var frame = safeAreaFrame
         frame.origin.x += inset
-        frame.origin.y += 8.0
         frame.size.width = targetWidth
         frame.size.height = targetHeight
+
+        let alignment = (presentedViewController as? CustomPresentable)?.presentationAlignment ?? .top
+        switch alignment {
+        case .top:
+            frame.origin.y = safeAreaFrame.minY + verticalPadding
+        case .center:
+            frame.origin.y = safeAreaFrame.minY + (safeAreaFrame.height - targetHeight) / 2.0
+        case .bottom:
+            frame.origin.y = safeAreaFrame.maxY - targetHeight - verticalPadding
+        }
 
         return frame
     }

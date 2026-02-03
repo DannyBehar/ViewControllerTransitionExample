@@ -3,11 +3,13 @@ import UIKit
 protocol CustomPresentable: UIViewController {
     var transitionManager: UIViewControllerTransitioningDelegate? { get set }
     var dismissalHandlingScrollView: UIScrollView? { get }
+    var presentationAlignment: ModalPresentationAlignment { get }
     func updatePresentationLayout(animated: Bool)
 }
 
 extension CustomPresentable {
     var dismissalHandlingScrollView: UIScrollView? { nil }
+    var presentationAlignment: ModalPresentationAlignment { .top }
 
     func updatePresentationLayout(animated: Bool = false) {
         presentationController?.containerView?.setNeedsLayout()

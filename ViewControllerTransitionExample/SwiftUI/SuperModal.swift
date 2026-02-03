@@ -4,6 +4,7 @@ import UIKit
 final class SuperModalHostingController<Content: View>: UIHostingController<Content>, CustomPresentable {
     var transitionManager: UIViewControllerTransitioningDelegate?
     var onDismiss: (() -> Void)?
+    var presentationAlignment: ModalPresentationAlignment = .top
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ final class SuperModalHostingController<Content: View>: UIHostingController<Cont
 private struct SuperModalPresenter<Content: View>: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     let interactiveDismissalType: InteractiveDismissalType
+    let alignment: ModalPresentationAlignment
     let content: () -> Content
     
     func makeUIViewController(context: Context) -> UIViewController {
@@ -33,9 +35,11 @@ private struct SuperModalPresenter<Content: View>: UIViewControllerRepresentable
         if isPresented {
             if let presentedController = context.coordinator.presentedController {
                 presentedController.rootView = content()
+                presentedController.presentationAlignment = alignment
                 presentedController.updatePresentationLayout(animated: true)
             } else {
                 let hostingController = SuperModalHostingController(rootView: content())
+                hostingController.presentationAlignment = alignment
                 hostingController.onDismiss = { [weak coordinator = context.coordinator] in
                     coordinator?.isPresented.wrappedValue = false
                     coordinator?.presentedController = nil
@@ -74,6 +78,7 @@ private struct SuperModalPresenter<Content: View>: UIViewControllerRepresentable
 private struct SuperModalItemPresenter<Item: Identifiable, Content: View>: UIViewControllerRepresentable {
     @Binding var item: Item?
     let interactiveDismissalType: InteractiveDismissalType
+    let alignment: ModalPresentationAlignment
     let content: (Item) -> Content
     
     func makeUIViewController(context: Context) -> UIViewController {
@@ -84,9 +89,11 @@ private struct SuperModalItemPresenter<Item: Identifiable, Content: View>: UIVie
         if let currentItem = item {
             if let presentedController = context.coordinator.presentedController {
                 presentedController.rootView = content(currentItem)
+                presentedController.presentationAlignment = alignment
                 presentedController.updatePresentationLayout(animated: true)
             } else {
                 let hostingController = SuperModalHostingController(rootView: content(currentItem))
+                hostingController.presentationAlignment = alignment
                 
                 hostingController.onDismiss = { [weak coordinator = context.coordinator] in
                     coordinator?.item.wrappedValue = nil
@@ -127,12 +134,14 @@ extension View {
     func superModal<Content: View>(
         isPresented: Binding<Bool>,
         interactiveDismissalType: InteractiveDismissalType = .standard,
+        alignment: ModalPresentationAlignment = .top,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         background(
             SuperModalPresenter(
                 isPresented: isPresented,
                 interactiveDismissalType: interactiveDismissalType,
+                alignment: alignment,
                 content: content
             )
         )
@@ -141,12 +150,14 @@ extension View {
     func superModal<Item: Identifiable, Content: View>(
         item: Binding<Item?>,
         interactiveDismissalType: InteractiveDismissalType = .standard,
+        alignment: ModalPresentationAlignment = .top,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View {
         background(
             SuperModalItemPresenter(
                 item: item,
                 interactiveDismissalType: interactiveDismissalType,
+                alignment: alignment,
                 content: content
             )
         )
