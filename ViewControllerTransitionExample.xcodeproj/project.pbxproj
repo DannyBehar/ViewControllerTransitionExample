@@ -3,47 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65830CF7240EA233004DC2A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830CF6240EA233004DC2A4 /* AppDelegate.swift */; };
-		65830CF9240EA233004DC2A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830CF8240EA233004DC2A4 /* SceneDelegate.swift */; };
-		65830CFB240EA233004DC2A4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830CFA240EA233004DC2A4 /* HomeViewController.swift */; };
-		65830D00240EA235004DC2A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65830CFF240EA235004DC2A4 /* Assets.xcassets */; };
-		65830D03240EA235004DC2A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65830D01240EA235004DC2A4 /* LaunchScreen.storyboard */; };
 		65830D0C240EA361004DC2A4 /* Cartography in Frameworks */ = {isa = PBXBuildFile; productRef = 65830D0B240EA361004DC2A4 /* Cartography */; };
-		65830D0E240EA3A9004DC2A4 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D0D240EA3A9004DC2A4 /* ViewFactory.swift */; };
-		65830D17240EA4D3004DC2A4 /* ModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D0F240EA4D2004DC2A4 /* ModalTransitionAnimator.swift */; };
-		65830D18240EA4D3004DC2A4 /* InteractionControlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D10240EA4D2004DC2A4 /* InteractionControlling.swift */; };
-		65830D19240EA4D3004DC2A4 /* CustomPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D11240EA4D2004DC2A4 /* CustomPresentable.swift */; };
-		65830D1B240EA4D3004DC2A4 /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D13240EA4D3004DC2A4 /* ModalPresentationController.swift */; };
-		65830D1C240EA4D3004DC2A4 /* StandardInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D14240EA4D3004DC2A4 /* StandardInteractionController.swift */; };
-		65830D1D240EA4D3004DC2A4 /* UIViewController+Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D15240EA4D3004DC2A4 /* UIViewController+Transitions.swift */; };
-		65830D1E240EA4D3004DC2A4 /* ModalTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D16240EA4D3004DC2A4 /* ModalTransitionManager.swift */; };
-		65830D21240EA615004DC2A4 /* OneWayPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D20240EA615004DC2A4 /* OneWayPanGestureRecognizer.swift */; };
-		65830D24240EA6A1004DC2A4 /* CoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65830D23240EA6A1004DC2A4 /* CoolViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		65830CF3240EA233004DC2A4 /* ViewControllerTransitionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewControllerTransitionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		65830CF6240EA233004DC2A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		65830CF8240EA233004DC2A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		65830CFA240EA233004DC2A4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		65830CFF240EA235004DC2A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		65830D02240EA235004DC2A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		65830D04240EA235004DC2A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65830D0D240EA3A9004DC2A4 /* ViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
-		65830D0F240EA4D2004DC2A4 /* ModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalTransitionAnimator.swift; sourceTree = "<group>"; };
-		65830D10240EA4D2004DC2A4 /* InteractionControlling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionControlling.swift; sourceTree = "<group>"; };
-		65830D11240EA4D2004DC2A4 /* CustomPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentable.swift; sourceTree = "<group>"; };
-		65830D13240EA4D3004DC2A4 /* ModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
-		65830D14240EA4D3004DC2A4 /* StandardInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardInteractionController.swift; sourceTree = "<group>"; };
-		65830D15240EA4D3004DC2A4 /* UIViewController+Transitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Transitions.swift"; sourceTree = "<group>"; };
-		65830D16240EA4D3004DC2A4 /* ModalTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalTransitionManager.swift; sourceTree = "<group>"; };
-		65830D20240EA615004DC2A4 /* OneWayPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneWayPanGestureRecognizer.swift; sourceTree = "<group>"; };
-		65830D23240EA6A1004DC2A4 /* CoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		468571E52F32BC76003C499C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 65830CF2240EA233004DC2A4 /* ViewControllerTransitionExample */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		468571D32F32BC76003C499C /* ViewControllerTransitionExample */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (468571E52F32BC76003C499C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ViewControllerTransitionExample; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		65830CF0240EA233004DC2A4 /* Frameworks */ = {
@@ -60,7 +43,7 @@
 		65830CEA240EA233004DC2A4 = {
 			isa = PBXGroup;
 			children = (
-				65830CF5240EA233004DC2A4 /* ViewControllerTransitionExample */,
+				468571D32F32BC76003C499C /* ViewControllerTransitionExample */,
 				65830CF4240EA233004DC2A4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,45 +54,6 @@
 				65830CF3240EA233004DC2A4 /* ViewControllerTransitionExample.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		65830CF5240EA233004DC2A4 /* ViewControllerTransitionExample */ = {
-			isa = PBXGroup;
-			children = (
-				65830CF6240EA233004DC2A4 /* AppDelegate.swift */,
-				65830CF8240EA233004DC2A4 /* SceneDelegate.swift */,
-				65830CFA240EA233004DC2A4 /* HomeViewController.swift */,
-				65830D23240EA6A1004DC2A4 /* CoolViewController.swift */,
-				65830D22240EA683004DC2A4 /* Utilities */,
-				65830D1F240EA4D9004DC2A4 /* Transitions */,
-				65830CFF240EA235004DC2A4 /* Assets.xcassets */,
-				65830D01240EA235004DC2A4 /* LaunchScreen.storyboard */,
-				65830D04240EA235004DC2A4 /* Info.plist */,
-			);
-			path = ViewControllerTransitionExample;
-			sourceTree = "<group>";
-		};
-		65830D1F240EA4D9004DC2A4 /* Transitions */ = {
-			isa = PBXGroup;
-			children = (
-				65830D11240EA4D2004DC2A4 /* CustomPresentable.swift */,
-				65830D10240EA4D2004DC2A4 /* InteractionControlling.swift */,
-				65830D13240EA4D3004DC2A4 /* ModalPresentationController.swift */,
-				65830D0F240EA4D2004DC2A4 /* ModalTransitionAnimator.swift */,
-				65830D16240EA4D3004DC2A4 /* ModalTransitionManager.swift */,
-				65830D14240EA4D3004DC2A4 /* StandardInteractionController.swift */,
-				65830D15240EA4D3004DC2A4 /* UIViewController+Transitions.swift */,
-			);
-			path = Transitions;
-			sourceTree = "<group>";
-		};
-		65830D22240EA683004DC2A4 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				65830D0D240EA3A9004DC2A4 /* ViewFactory.swift */,
-				65830D20240EA615004DC2A4 /* OneWayPanGestureRecognizer.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +70,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				468571D32F32BC76003C499C /* ViewControllerTransitionExample */,
 			);
 			name = ViewControllerTransitionExample;
 			packageProductDependencies = (
@@ -176,8 +123,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65830D03240EA235004DC2A4 /* LaunchScreen.storyboard in Resources */,
-				65830D00240EA235004DC2A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,34 +133,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65830CFB240EA233004DC2A4 /* HomeViewController.swift in Sources */,
-				65830D1C240EA4D3004DC2A4 /* StandardInteractionController.swift in Sources */,
-				65830D1E240EA4D3004DC2A4 /* ModalTransitionManager.swift in Sources */,
-				65830D17240EA4D3004DC2A4 /* ModalTransitionAnimator.swift in Sources */,
-				65830D1D240EA4D3004DC2A4 /* UIViewController+Transitions.swift in Sources */,
-				65830D19240EA4D3004DC2A4 /* CustomPresentable.swift in Sources */,
-				65830CF7240EA233004DC2A4 /* AppDelegate.swift in Sources */,
-				65830D1B240EA4D3004DC2A4 /* ModalPresentationController.swift in Sources */,
-				65830D21240EA615004DC2A4 /* OneWayPanGestureRecognizer.swift in Sources */,
-				65830D0E240EA3A9004DC2A4 /* ViewFactory.swift in Sources */,
-				65830D18240EA4D3004DC2A4 /* InteractionControlling.swift in Sources */,
-				65830CF9240EA233004DC2A4 /* SceneDelegate.swift in Sources */,
-				65830D24240EA6A1004DC2A4 /* CoolViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		65830D01240EA235004DC2A4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65830D02240EA235004DC2A4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		65830D05240EA235004DC2A4 /* Debug */ = {
@@ -339,6 +260,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 225N53A79M;
 				INFOPLIST_FILE = ViewControllerTransitionExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,6 +279,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 225N53A79M;
 				INFOPLIST_FILE = ViewControllerTransitionExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
