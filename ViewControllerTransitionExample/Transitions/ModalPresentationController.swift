@@ -10,6 +10,13 @@ enum ModalPresentationAlignment {
 class ModalPresentationController: UIPresentationController {
 
     lazy var fadeView: UIView = .make(backgroundColor: UIColor.black.withAlphaComponent(0.3), alpha: 0.0)
+    private let presentingTransform: CGAffineTransform = {
+        var transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        transform = transform.translatedBy(x: 0.0, y: -8.0)
+        return transform
+    }()
+    private var didTransformPresentingView = false
+    private weak var transformedPresentingView: UIView?
 
     override func presentationTransitionWillBegin() {
         guard let containerView = containerView else { return }
@@ -19,26 +26,65 @@ class ModalPresentationController: UIPresentationController {
             $0.edges == $0.superview!.edges
         }
 
+        let shouldTransformPresentingModal = shouldTransformPresentingView()
+
         guard let coordinator = presentedViewController.transitionCoordinator else {
             fadeView.alpha = 1.0
+            if shouldTransformPresentingModal {
+                applyTransformToPresentingView()
+                didTransformPresentingView = true
+            }
             return
         }
 
         coordinator.animate(alongsideTransition: { _ in
             self.fadeView.alpha = 1.0
+            if shouldTransformPresentingModal {
+                self.applyTransformToPresentingView()
+                self.didTransformPresentingView = true
+            }
         })
     }
 
     override func dismissalTransitionWillBegin() {
         guard let coordinator = presentedViewController.transitionCoordinator else {
             fadeView.alpha = 0.0
+            if didTransformPresentingView {
+                resetTransformOnPresentingView()
+                didTransformPresentingView = false
+            }
             return
         }
 
-        if !coordinator.isInteractive {
-            coordinator.animate(alongsideTransition: { _ in
-                self.fadeView.alpha = 0.0
-            })
+        if coordinator.isInteractive {
+            return
+        }
+
+        coordinator.animate(alongsideTransition: { _ in
+            self.fadeView.alpha = 0.0
+            if self.didTransformPresentingView {
+                self.resetTransformOnPresentingView()
+                self.didTransformPresentingView = false
+            }
+        })
+    }
+
+    override func presentationTransitionDidEnd(_ completed: Bool) {
+        super.presentationTransitionDidEnd(completed)
+        if completed, didTransformPresentingView {
+            // UIKit may reset the presenting view's transform at the end of the transition.
+            applyTransformToPresentingView()
+        } else if !completed, didTransformPresentingView {
+            resetTransformOnPresentingView()
+            didTransformPresentingView = false
+        }
+    }
+
+    override func dismissalTransitionDidEnd(_ completed: Bool) {
+        super.dismissalTransitionDidEnd(completed)
+        if completed {
+            resetTransformOnPresentingView()
+            didTransformPresentingView = false
         }
     }
 
@@ -81,5 +127,56 @@ class ModalPresentationController: UIPresentationController {
         }
 
         return frame
+    }
+
+    private func shouldTransformPresentingView() -> Bool {
+        guard let presentingModal = presentingViewController as? CustomPresentable,
+              let presentedModal = presentedViewController as? CustomPresentable else {
+            return false
+        }
+
+        return presentingModal.presentationAlignment == presentedModal.presentationAlignment
+    }
+
+    private func applyTransformToPresentingView() {
+        if let presentingModal = presentingViewController as? CustomPresentable,
+           let targetView = presentingModal.presentationTransformTargetView ?? presentingViewController.presentationController?.presentedView {
+            targetView.transform = presentingTransform
+            transformedPresentingView = targetView
+        } else if let presentingPresentedView = presentingViewController.presentationController?.presentedView {
+            presentingPresentedView.transform = presentingTransform
+            transformedPresentingView = presentingPresentedView
+        } else {
+            presentingViewController.view.transform = presentingTransform
+            transformedPresentingView = presentingViewController.view
+        }
+    }
+
+    private func resetTransformOnPresentingView() {
+        transformedPresentingView?.transform = .identity
+        transformedPresentingView = nil
+    }
+
+    func updatePresentingViewTransform(for progress: CGFloat) {
+        guard didTransformPresentingView else { return }
+        let clamped = min(max(progress, 0.0), 1.0)
+        let from = presentingTransform
+        let to = CGAffineTransform.identity
+
+        let interpolated = CGAffineTransform(
+            a: from.a + (to.a - from.a) * clamped,
+            b: from.b + (to.b - from.b) * clamped,
+            c: from.c + (to.c - from.c) * clamped,
+            d: from.d + (to.d - from.d) * clamped,
+            tx: from.tx + (to.tx - from.tx) * clamped,
+            ty: from.ty + (to.ty - from.ty) * clamped
+        )
+
+        transformedPresentingView?.transform = interpolated
+    }
+
+    func setPresentingViewTransform(_ transform: CGAffineTransform) {
+        guard didTransformPresentingView else { return }
+        transformedPresentingView?.transform = transform
     }
 }

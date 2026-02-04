@@ -96,6 +96,7 @@ class StandardInteractionController: NSObject, InteractionControlling {
 
         if let modalPresentationController = presentedViewController.presentationController as? ModalPresentationController {
             modalPresentationController.fadeView.alpha = 1.0 - progress
+            modalPresentationController.updatePresentingViewTransform(for: progress)
         }
     }
 
@@ -110,6 +111,7 @@ class StandardInteractionController: NSObject, InteractionControlling {
             presentedViewController.view.frame = presentedFrame
             if let modalPresentationController = presentedViewController.presentationController as? ModalPresentationController {
                 modalPresentationController.fadeView.alpha = 1.0
+                modalPresentationController.updatePresentingViewTransform(for: 0.0)
             }
         }
 
@@ -135,6 +137,7 @@ class StandardInteractionController: NSObject, InteractionControlling {
             presentedViewController.view.frame = dismissedFrame
             if let modalPresentationController = presentedViewController.presentationController as? ModalPresentationController {
                 modalPresentationController.fadeView.alpha = 0.0
+                modalPresentationController.updatePresentingViewTransform(for: 1.0)
             }
         }
 

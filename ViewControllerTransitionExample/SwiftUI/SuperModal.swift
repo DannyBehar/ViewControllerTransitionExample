@@ -1,16 +1,58 @@
 import SwiftUI
 import UIKit
 
-final class SuperModalHostingController<Content: View>: UIHostingController<Content>, CustomPresentable {
+final class SuperModalHostingController<Content: View>: UIViewController, CustomPresentable {
     var transitionManager: UIViewControllerTransitioningDelegate?
     var onDismiss: (() -> Void)?
     var presentationAlignment: ModalPresentationAlignment = .top
+    var presentationTransformTargetView: UIView? { contentContainerView }
+
+    private let contentContainerView = UIView()
+    private var hostingController: UIHostingController<Content>
+
+    var rootView: Content {
+        get { hostingController.rootView }
+        set { hostingController.rootView = newValue }
+    }
+
+    init(rootView: Content) {
+        hostingController = UIHostingController(rootView: rootView)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 20.0
-        view.layer.masksToBounds = true
+        view.backgroundColor = .clear
+
+        contentContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentContainerView.backgroundColor = .systemBackground
+        contentContainerView.layer.cornerRadius = 20.0
+        contentContainerView.layer.masksToBounds = true
+
+        addChild(hostingController)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.backgroundColor = .clear
+
+        view.addSubview(contentContainerView)
+        contentContainerView.addSubview(hostingController.view)
+
+        NSLayoutConstraint.activate([
+            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            hostingController.view.leadingAnchor.constraint(equalTo: contentContainerView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: contentContainerView.trailingAnchor),
+            hostingController.view.topAnchor.constraint(equalTo: contentContainerView.topAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: contentContainerView.bottomAnchor)
+        ])
+
+        hostingController.didMove(toParent: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -176,9 +218,41 @@ extension View {
         }
     }
     .superModal(isPresented: $isPresented) {
-        VStack {
-            Text("Hello World")
+       FirstModalView()
+    }
+}
+
+
+struct FirstModalView: View {
+    @State private var showSecond = false
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("First modal")
+            Button("Show Second") { showSecond = true }
         }
-        .frame(width: 200, height: 200)
+        .padding(16)
+        .superModal(isPresented: $showSecond) {
+            SecondModalView()
+        }
+    }
+}
+
+struct SecondModalView: View {
+    @State private var showThird = false
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("First modal")
+            Button("Show Second") { showThird = true }
+        }
+        .padding(16)
+        .superModal(isPresented: $showThird) {
+            VStack(spacing: 16) {
+                Text("Second modal")
+                Button("Dismiss") { showThird = false }
+            }
+            .padding(16)
+        }
     }
 }
