@@ -21,6 +21,9 @@ class ModalPresentationController: UIPresentationController {
     override func presentationTransitionWillBegin() {
         guard let containerView = containerView else { return }
         containerView.insertSubview(fadeView, at: 0)
+        fadeView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        fadeView.addGestureRecognizer(tapGesture)
 
         constrain(fadeView) {
             $0.edges == $0.superview!.edges
@@ -44,6 +47,10 @@ class ModalPresentationController: UIPresentationController {
                 self.didTransformPresentingView = true
             }
         })
+    }
+
+    @objc private func handleBackgroundTap() {
+        presentedViewController.dismiss(animated: true)
     }
 
     override func dismissalTransitionWillBegin() {
