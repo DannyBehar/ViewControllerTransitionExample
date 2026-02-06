@@ -106,7 +106,14 @@ class ModalPresentationController: UIPresentationController {
         let safeAreaFrame = containerView.bounds.inset(by: containerView.safeAreaInsets)
         let verticalPadding: CGFloat = 8.0
 
-        let targetWidth = safeAreaFrame.width - 2 * inset
+        let availableWidth = safeAreaFrame.width - 2 * inset
+        let maxRegularWidth: CGFloat = 580.0
+        let targetWidth: CGFloat
+        if presentedViewController.traitCollection.horizontalSizeClass == .regular {
+            targetWidth = min(availableWidth, maxRegularWidth)
+        } else {
+            targetWidth = availableWidth
+        }
         let fittingSize = CGSize(
             width: targetWidth,
             height: UIView.layoutFittingCompressedSize.height
@@ -119,7 +126,7 @@ class ModalPresentationController: UIPresentationController {
         ).height
 
         var frame = safeAreaFrame
-        frame.origin.x += inset
+        frame.origin.x = safeAreaFrame.minX + (safeAreaFrame.width - targetWidth) / 2.0
         frame.size.width = targetWidth
         frame.size.height = targetHeight
 
